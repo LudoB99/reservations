@@ -1,0 +1,25 @@
+<ng-container *ngIf="broker.getClients() as clients">
+  <table class="table table-borderless table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Prénom</th>
+        <th scope="col">Nom</th>
+        <th scope="col">Adresse</th>
+        <th scope="col">Téléphone</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let client of clients">
+        <td>{{ client.firstName }}</td>
+        <td>{{ client.lastName }}</td>
+        <td>{{ client.address }}</td>
+        <td>{{ client.phone | phoneFormat }}</td>
+        <td><a class="link-secondary"  data-bs-client="client" (click)="update(client)"><fa-icon [icon]="faUpdate"></fa-icon></a></td>
+        <td><a class="link-danger" (click)="broker.deleteClient(client)"><fa-icon [icon]="faDelete"></fa-icon></a></td>
+    </tbody>
+  </table>
+  <button type="button" class="btn btn-success float-end me-3 mt-3" (click)="export(clients)">Exporter (CSV)</button>
+</ng-container>
+

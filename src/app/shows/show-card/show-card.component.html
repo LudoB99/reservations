@@ -1,0 +1,18 @@
+<div *ngIf="show">
+  <div class="card">
+    <img class="card-img-top" src="{{ show.imgUrl }}">
+    <div class="card-body">
+      <h5 class="card-title"> {{ show.title }}</h5>
+      <p class="card-date"> {{ show.date | date }}</p>
+      <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras et vestibulum orci, posuere
+        malesuada massa.</p>
+      <h6 class="card-price"> Régulier: {{ show.price.regularPrice | currency}}</h6>
+      <h6 class="card-price"> Étudiants: {{ show.price.studentPrice | currency}}</h6>
+      <a routerLink="/spectacles/{{ show.key }}" class="btn btn-success card-buy">Acheter</a>
+      <div class="tool-row float-end mt-3">
+        <a class="link-secondary me-2"  (click)="update(show)"><fa-icon [icon]="faUpdate"></fa-icon></a>
+        <a class="link-danger" (click)="showService.deleteShow(show)"><fa-icon [icon]="faDelete"></fa-icon></a>
+      </div>
+    </div>
+  </div>
+</div>

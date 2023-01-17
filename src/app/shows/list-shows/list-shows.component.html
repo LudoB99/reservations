@@ -1,0 +1,6 @@
+<div class="card-group">
+  <ng-container *ngFor="let show of broker.getShows()">
+    <app-show-card [show]='show'>
+    </app-show-card>
+  </ng-container>
+</div>

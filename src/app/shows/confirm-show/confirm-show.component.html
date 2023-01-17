@@ -1,0 +1,72 @@
+<ng-container *ngIf="(transactionService.getTransaction(key)) as transaction">
+  <ng-container *ngIf="clientService.getClient(transaction.client) as client">
+    <ng-container *ngIf="showService.getShow(transaction.show) as show">
+      <div class="row">
+        <div class="col">
+          <table class="table table-hover">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Prénom</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Adresse</th>
+                <th scope="col">Téléphone</th>
+              </tr>
+            </thead>
+            <tbody >
+                <tr>
+                  <td>{{ client.firstName }}</td>
+                  <td>{{ client.lastName }}</td>
+                  <td>{{ client.address }}</td>
+                  <td>{{ client.phone | phoneFormat}}</td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col">
+          <table class="table table-hover">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Titre</th>
+                <th scope="col">Date</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <td>{{ show.title }}</td>
+                  <td>{{ show.date | date }}</td>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col">
+          <table class="table table-hover text-end">
+            <tr *ngIf="transaction.regularTickets > 0">
+              <th>Réguliers ({{ transaction.regularTickets }})</th>
+              <td class>{{ transaction.regularPrice | currency}}</td>
+            </tr>
+            <tr *ngIf="transaction.studentTickets > 0">
+              <th>Étudiants ({{ transaction.studentTickets }})</th>
+              <td>{{ transaction.studentPrice | currency }}</td>
+            </tr>
+            <tr>
+              <th>-</th>
+              <td>-</td>
+            </tr>
+            <tr>
+              <th>Total</th>
+              <td>{{ transaction.total | currency }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <button type="button" class="btn btn-primary float-end" (click)="confirm()">Confirmer</button>
+      <button type="button" class="btn btn-danger float-end me-2" (click)="cancel()">Annuler</button>
+    </ng-container>
+  </ng-container>
+</ng-container>
+
+
+

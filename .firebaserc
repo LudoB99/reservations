@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "reservations-c3dbf": {
+      "hosting": {
+        "reservations": [
+          "reservations-c3dbf"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "reservations-c3dbf"
+  }
+}

@@ -1,0 +1,23 @@
+.card {
+  width: 20rem;
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+}
+
+.card-img-top {
+  height: 400px;
+
+}
+.card-price {
+  text-align: right;
+}
+
+.card-buy {
+  margin-top: 24px;
+  width: 100%;;
+  align-self: center;
+}
+
+.tool-row a:hover {
+  cursor: pointer;
+}

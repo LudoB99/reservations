@@ -1,0 +1,33 @@
+<ng-container *ngIf="showService.getShow(key) as show">
+  <form #show = "ngForm" (ngSubmit)="update(show)">
+    <div class="grid">
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label for="inputTitle">Titre</label>
+          <input type="text" class="form-control" id="inputTitle" name="title" [(ngModel)]="show.title">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="inputDate">Date</label>
+          <input type="datetime-local" class="form-control" id="inputData" name="date" [(ngModel)]="show.date">
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="form-group col-md-3">
+          <label for="inputRegularPrice">Prix régulier</label>
+          <input type="number" class="form-control" id="inputRegularPrice" name="regularPrice" [(ngModel)]="show.price.regularPrice">
+        </div>
+        <div class="form-group col-md-3">
+          <label for="inputStudentPrice">Prix étudiant</label>
+          <input type="number" class="form-control" id="inputStudentPrice" name="studentPrice" [(ngModel)]="show.price.studentPrice">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="inputImgUrl">URL</label>
+          <input type="text" class="form-control" id="inputImgUrl" name="imgUrl" [(ngModel)]="show.imgUrl">
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary mt-3">Enregistrer</button>
+    </div>
+  </form>
+</ng-container>
+
+

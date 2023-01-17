@@ -1,0 +1,30 @@
+<form #show = "ngForm" (ngSubmit)="submit(show)">
+  <div class="grid">
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label for="inputTitle">Titre</label>
+        <input type="text" class="form-control" id="inputTitle" name="title" ngModel>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputAddress">Date</label>
+        <input type="datetime-local" class="form-control" id="inputAddress" name="date" ngModel>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="form-group col-md-3">
+        <label for="inputRegularPrice">Prix régulier</label>
+        <input type="number" class="form-control" id="inputRegularPrice" name="regularPrice" ngModel>
+      </div>
+      <div class="form-group col-md-3">
+        <label for="inputStudentPrice">Prix étudiant</label>
+        <input type="number" class="form-control" id="inputStudentPrice" name="studentPrice" ngModel>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputImgUrl">URL</label>
+        <input type="text" class="form-control" id="inputImgUrl" name="imgUrl" ngModel>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Enregistrer</button>
+  </div>
+</form>
+

@@ -1,0 +1,69 @@
+<div class="row">
+  <p>Réservations: {{ transactions.length }}</p>
+  <hr>
+</div>
+<div *ngFor="let transaction of transactions" class="row">
+  <div class="row">
+    <div class="col">
+      <table class="table table-borderless table-hover">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col" style="width: 50%">Titre</th>
+            <th scope="col" style="width: 50%">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+              <tr>
+                <td>{{ transaction.show.title }}</td>
+                <td>{{ transaction.show.date }}</td>
+              </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <table class="table table-borderless table-hover">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col" style="width: 15%">Prénom</th>
+            <th scope="col" style="width: 15%">Nom</th>
+            <th scope="col" style="width: 40%">Adresse</th>
+            <th scope="col" style="width: 15%">Ville</th>
+            <th scope="col" style="width: 15%">Téléphone</th>
+          </tr>
+        </thead>
+        <tbody>
+              <tr>
+                <td>{{ transaction.client.firstName }}</td>
+                <td>{{ transaction.client.lastName }}</td>
+                <td>{{ transaction.client.address }}</td>
+                <td>{{ transaction.client.city }}</td>
+                <td>{{ transaction.client.phone | phoneFormat}}</td>
+              </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <table class="table table-hover text-end">
+        <tr *ngIf="transaction.regularTickets > 0">
+          <th>Réguliers ({{ transaction.regularTickets }})</th>
+          <td class>{{ transaction.regularPrice | currency}}</td>
+        </tr>
+        <tr *ngIf="transaction.studentTickets > 0">
+          <th>Étudiants ({{ transaction.studentTickets }})</th>
+          <td>{{ transaction.studentPrice | currency}}</td>
+        </tr>
+        <tr>
+          <th>Total</th>
+          <td>{{ transaction.total | currency }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <hr>
+</div>
+<button type="button" class="btn btn-success float-end me-3 mt-3" (click)="export()">Exporter (CSV)</button>
+

@@ -1,0 +1,8 @@
+.list-group-item{
+  border: none;
+}
+
+.list-group {
+  border-right: 1px solid gray;
+  --bs-list-group-border-radius: 0;
+}

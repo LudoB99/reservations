@@ -1,0 +1,51 @@
+<form #client="ngForm" (ngSubmit)="submit(client)">
+  <div class="grid">
+    <div class="row">
+      <div class="form-group col-md-4">
+        <label for="inputFirstName">Prénom</label>
+        <input type="text" class="form-control" id="inputFirstName" name="firstName" ngModel>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="inputLastName">Nom</label>
+        <input type="text" class="form-control" id="inputLastName" name="lastName" ngModel>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="inputPhone">Téléphone</label>
+        <input type="tel" class="form-control" id="inputPhone" name="phone" ngModel>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="form-group col-md-6">
+        <label for="inputAddress">Adresse</label>
+        <input type="text" class="form-control" id="inputStreet" name="street" ngModel>
+      </div>
+      <div class="form-group col-md-2">
+        <label for="inputCity">Ville</label>
+        <input type="text" class="form-control" id="inputCity" name="city" ngModel>
+      </div>
+      <div class="form-group col-md-2">
+        <label for="inputProvince">Province</label>
+        <select id="inputProvince" class="form-control" name="province" ngModel>
+          <option selected>Québec</option>
+          <option>Alberta</option>
+          <option>Colombie-Britannique</option>
+          <option>Île-du-Prince-Édouard</option>
+          <option>Manitoba</option>
+          <option>Nouveau-Brunswick</option>
+          <option>Nouvelle-Écosse</option>
+          <option>Ontario</option>
+          <option>Saskatchewan</option>
+          <option>Terre-Neuve-et-Labrador</option>
+          <option>Territoires du Nord-Ouest</option>
+          <option>Nunavut</option>
+          <option>Yukon</option>
+        </select>
+      </div>
+      <div class="form-group col-md-2">
+        <label for="inputZip">Code Postal</label>
+        <input type="text" class="form-control" id="inputZip" name="zip" ngModel>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3 float-end">Enregistrer</button>
+  </div>
+</form>
