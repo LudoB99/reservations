@@ -1,19 +1,26 @@
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
-import { AngularFireList } from '@angular/fire/compat/database';
+import {
+  AngularFireDatabase,
+  AngularFireList
+} from '@angular/fire/compat/database';
+import {
+  map,
+  Observable
+} from 'rxjs';
 import { BrokerService } from './broker.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TransactionBrokerService {
+export class TransactionBrokerService extends BrokerService {
 
   private readonly _path: string;
   private _ref: AngularFireList<any>;
 
-  constructor(private _broker: BrokerService) {
+  constructor(_db: AngularFireDatabase) {
+    super(_db); 
     this._path = 'transactions';
-    this._ref = _broker.getListRef(this._path);
+    this._ref = this.getListRef(this._path);
   }
 
   public add(transaction: any) {

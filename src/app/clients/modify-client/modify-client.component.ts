@@ -1,9 +1,13 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit
+} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ClientService } from 'src/app/services/client.service';
-
+import { Client } from 'src/app/types/client';
 @Component({
   selector: 'app-modify-client',
   templateUrl: './modify-client.component.html',
@@ -11,16 +15,54 @@ import { ClientService } from 'src/app/services/client.service';
 })
 export class ModifyClientComponent {
 
-  public key: any;
+  //#region Private members
 
-  constructor(public clientService: ClientService, private _route: ActivatedRoute, private _location: Location) {
-    this.key = _route.snapshot.paramMap.get('id');
+  private readonly _key: string;
+
+  //#endregion
+
+  //#region ctor
+
+  constructor(private _clientService: ClientService, private _route: ActivatedRoute, private _location: Location) {
+    this._key = this.getKey(); 
   }
 
-  public update(form: NgForm) {
-    this.clientService.updateClient(this.key, this.clientService.format(form))
-    .then(() => {
-      this._location.back();
-    });
+  //#endregion
+
+  //#region Properties
+
+  public get client(): Client | undefined {
+    return this._clientService.getClient(this._key); 
   }
+
+  //#endregion
+
+  //#region Public methods
+
+  public update(form: NgForm): void {
+    if(this.isValid(form)) {
+      this._clientService.updateClient(this._key, form.value).then(() => {
+        this._location.back();
+      });
+    }
+  }
+
+  //#endregion
+
+  //#region Private methods
+
+  private isValid(form: NgForm): boolean {
+    return true; //TODO: Validation de formulaire.
+  }
+
+  private getKey(): string {
+    const paramName = 'id'; 
+    const key = this._route.snapshot.paramMap.get(paramName);
+    if(key  === null) {
+      throw new Error('Wrong URL format');
+    }
+    return key; 
+  }
+
+  //#endregion
 }

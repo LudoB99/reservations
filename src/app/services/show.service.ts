@@ -1,21 +1,22 @@
 import { Injectable } from '@angular/core';
-import { ShowBrokerService } from 'src/app/brokers/show-broker.service';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { ShowBrokerService } from 'src/app/services/brokers/show-broker.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ShowService{
+export class ShowService extends ShowBrokerService{
   private _shows: any[] = [];
 
-  constructor(private _broker: ShowBrokerService) {
-    console.log("Creating ShowService instance");
-    this._broker.getAll().subscribe(shows => {
+  constructor(_db: AngularFireDatabase) {
+    super(_db)
+    this.getAll().subscribe(shows => {
       this._shows = shows;
     })
   }
 
   public addShow(show: any) {
-    return this._broker.add(show);
+    return this.add(show);
   }
 
   public getShows(): any[] {
@@ -30,18 +31,18 @@ export class ShowService{
   }
 
   public updateShow(key: string, show: any): Promise<void> {
-    return this._broker.update(key, show);
+    return this.update(key, show);
   }
 
   public deleteShow(show: any) {
     if(confirm(this.deleteShowPrompt(show))) {
-      return this._broker.delete(show.key);
+      return this.delete(show.key);
     }
     return undefined;
   }
 
-  public deleteAll() {
-    return this._broker.deleteAll();
+  public deleteAllShows() {
+    return this.deleteAll();
   }
 
   private deleteShowPrompt(show: any): string {

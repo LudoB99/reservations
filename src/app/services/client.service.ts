@@ -1,31 +1,33 @@
 import { Injectable } from '@angular/core';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { Client } from 'src/client';
-import { ClientBrokerService } from '../brokers/client-broker.service';
+import { Client } from 'src/app/types/client';
+import { ClientBrokerService } from './brokers/client-broker.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ClientService {
+export class ClientService extends ClientBrokerService {
 
-  private _clients: any[] = [];
+  private _clients: Array<Client> = [];
 
-  constructor(private _broker: ClientBrokerService) {
-    console.log("Creating ClientService instance");
-    this._broker.getAll().subscribe(clients => {
+  constructor(_db: AngularFireDatabase) {
+    super(_db);
+    this.getAll().subscribe(clients => {
       this._clients = clients;
     })
   }
 
   public addClient(client: Client): void {
-    this._broker.add(client);
+    this.add(client);
   }
 
-  public getClients(): any[] {
+  public getClients(): Array<Client> {
     return this._clients;
   }
 
-  public getClient(key: string): any {
+  public getClient(key: string): Client | undefined {      
     let client = this.getClients().find(client => {
       return client.key == key;
     })
@@ -33,29 +35,29 @@ export class ClientService {
   }
 
   public getObservable(): Observable<any> {
-    return this._broker.getAll();
+    return this.getAll();
   }
 
   public updateClient(key: string, client: any): Promise<void> {
-    return this._broker.update(key, client);
+    return this.update(key, client);
   }
 
   public deleteClient(client: any) {
     if(confirm(this.deleteClientPrompt(client))) {
-      return this._broker.delete(client.key);
+      return this.delete(client.key);
     }
-    return undefined;
+    return undefined; 
   }
 
-  public deleteAll() {
-    return this._broker.deleteAll();
+  public deleteAllClients() {
+    return this.deleteAll();
   }
 
   private deleteClientPrompt(client: any): string {
     return "Voulez-vous supprimer " + client.firstName + " " + client.lastName + " de la liste?";
   }
 
-  public format(client: any): Client {
+  public format(client: Client): Client {
     return {
       firstName: client.firstName,
       lastName: client.lastName,

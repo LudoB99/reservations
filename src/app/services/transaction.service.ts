@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { TransactionBrokerService } from '../brokers/transaction-broker.service';
+import { TransactionBrokerService } from './brokers/transaction-broker.service';
 import { ClientService } from './client.service';
 import { ShowService } from './show.service';
 

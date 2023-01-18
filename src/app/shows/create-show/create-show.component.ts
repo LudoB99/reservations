@@ -1,7 +1,7 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ShowService } from 'src/app/services/show.service'
-import { Location } from '@angular/common';
+import { ShowService } from 'src/app/services/show.service';
 
 @Component({
   selector: 'app-create-show',
@@ -14,8 +14,7 @@ export class CreateShowComponent {
 
   public submit(form:NgForm) {
     let show = this._showService.formatNewShow(form.value);
-    this._showService.addShow(show).then(
-      () => {this._location.back()}
-    );
+    this._showService.addShow(show);
+    this._location.back();
   }
 }

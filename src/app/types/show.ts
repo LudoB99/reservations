@@ -1,4 +1,5 @@
 export interface Show {
+  key?: string;
   title: string;
   date: number;
   price: {

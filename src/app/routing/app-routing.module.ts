@@ -1,22 +1,26 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes, TitleStrategy } from '@angular/router';
-import { PageTitleStrategy } from './page-title-strategy';
+import {
+  RouterModule,
+  Routes,
+  TitleStrategy
+} from '@angular/router';
+import { ClientsComponent } from '../clients/clients.component';
+import { CreateClientComponent } from '../clients/create-client/create-client.component';
+import { ListClientsComponent } from '../clients/list-clients/list-clients.component';
+import { ModifyClientComponent } from '../clients/modify-client/modify-client.component';
+import { PageTitleStrategy } from '../page-title-strategy';
+import { ListReservationsComponent } from '../reservations/list-reservations/list-reservations.component';
+import { ReservationsComponent } from '../reservations/reservations/reservations.component';
+import { ConfirmShowComponent } from '../shows/confirm-show/confirm-show.component';
+import { CreateShowComponent } from '../shows/create-show/create-show.component';
+import { ListShowsComponent } from '../shows/list-shows/list-shows.component';
+import { ModifyShowComponent } from '../shows/modify-show/modify-show.component';
+import { SellShowComponent } from '../shows/sell-show/sell-show.component';
+import { ShowsComponent } from '../shows/shows.component';
 
 /**
  * Routes
  */
-import { ClientsComponent } from './clients/clients.component';
-import { ShowsComponent } from './shows/shows.component';
-import { ReservationsComponent } from './reservations/reservations/reservations.component';
-import { ListClientsComponent } from './clients/list-clients/list-clients.component';
-import { ListShowsComponent } from './shows/list-shows/list-shows.component';
-import { ListReservationsComponent } from './reservations/list-reservations/list-reservations.component';
-import { CreateClientComponent } from './clients/create-client/create-client.component';
-import { CreateShowComponent } from './shows/create-show/create-show.component';
-import { SellShowComponent } from './shows/sell-show/sell-show.component';
-import { ConfirmShowComponent } from './shows/confirm-show/confirm-show.component';
-import { ModifyClientComponent } from './clients/modify-client/modify-client.component';
-import { ModifyShowComponent } from './shows/modify-show/modify-show.component';
 
 const routes: Routes = [
   {
