@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ShowService } from 'src/app/services/show.service';
+import { Show } from 'src/app/types/show';
 
 @Component({
   selector: 'app-modify-show',
@@ -11,17 +12,29 @@ import { ShowService } from 'src/app/services/show.service';
 })
 export class ModifyShowComponent {
 
-  public key: any;
+  private readonly _key: string;
 
-  constructor(public showService: ShowService, private _route: ActivatedRoute, private _location: Location) {
-    this.key = _route.snapshot.paramMap.get('id');
+  constructor(private _showService: ShowService, private _route: ActivatedRoute, private _location: Location) {
+    this._key = this.getShowID();
   }
 
-  public update(form: NgForm) {
+  public get show(): Show {
+    const show = this._showService.getShow(this._key); 
+    if(!show) {
+      throw "Wrong show ID"; 
+    } 
+    return show; 
+  }
 
-    this.showService.updateShow(this.key, this.showService.format(form))
+  public onSubmitForm(form: NgForm) {
+    this._showService.updateShow(this._key, form.value)
     .then(() => {
       this._location.back();
     });
+  }
+
+  private getShowID(): string {
+    const id = this._route.snapshot.paramMap.get('id');
+    return id as string; 
   }
 }

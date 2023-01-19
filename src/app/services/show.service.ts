@@ -1,55 +1,60 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { ShowBrokerService } from 'src/app/services/brokers/show-broker.service';
+import {
+  Observable,
+  of
+} from 'rxjs';
+import { Show } from '../types/show';
+import { ShowBrokerService } from './brokers/show-broker.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ShowService extends ShowBrokerService{
-  private _shows: any[] = [];
+export class ShowService extends ShowBrokerService {
+  private _shows: Array<Show> = [];
 
-  constructor(_db: AngularFireDatabase) {
-    super(_db)
+  constructor(db: AngularFireDatabase) {
+    super(db); 
     this.getAll().subscribe(shows => {
       this._shows = shows;
     })
   }
 
-  public addShow(show: any) {
+  public addShow(show: Show): void {
     return this.add(show);
   }
 
-  public getShows(): any[] {
+  public getShows(): Array<Show> { 
     return this._shows;
   }
 
-  public getShow(key: string): any {
+  public getShow(key: string): Show | undefined {
     let show = this.getShows().find(show => {
       return show.key === key;
     });
     return show;
   }
 
-  public updateShow(key: string, show: any): Promise<void> {
+  public updateShow(key: string, show: Show): Promise<void> {
     return this.update(key, show);
   }
 
-  public deleteShow(show: any) {
+  public deleteShow(show: Show): Promise<void> | undefined{
     if(confirm(this.deleteShowPrompt(show))) {
-      return this.delete(show.key);
+      if(show.key) return this.delete(show.key);
     }
-    return undefined;
+    return undefined
   }
 
   public deleteAllShows() {
     return this.deleteAll();
   }
 
-  private deleteShowPrompt(show: any): string {
+  private deleteShowPrompt(show: Show): string {
     return "Voulez-vous supprimer " + show.title + " de la liste?";
   }
 
-  public format(show: any): object {
+  public format(show: Show): object {
     return {
       title: show.title,
       date: show.date,

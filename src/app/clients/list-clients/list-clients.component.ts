@@ -25,8 +25,8 @@ export class ListClientsComponent {
 
   //#region ctor
 
-  constructor(private broker: ClientService, private _export: ExportService,
-    private _router: Router) {
+  constructor(private _clientService: ClientService, 
+    private _exportService: ExportService, private _router: Router) {
 
     this._updateIcon = faPen;
     this._deleteIcon = faTrashCan;
@@ -45,12 +45,12 @@ export class ListClientsComponent {
   }
 
   public get hasClients(): boolean {
-    const liste = this.broker.getClients();
+    const liste = this._clientService.getClients();
     return !(liste === undefined || liste.length === 0);
   }
 
   public get clients(): Array<Client> {
-    return this.broker.getClients();
+    return this._clientService.getClients();
   }
 
   //#endregion
@@ -58,7 +58,7 @@ export class ListClientsComponent {
   //#region Public methods
 
   public onExportClientClick(): void {
-    this._export.exportClient(this.clients);
+    this._exportService.exportClient(this.clients);
   }
 
   public onUpdateClientClick(client: Client): void {
@@ -68,7 +68,7 @@ export class ListClientsComponent {
   }
 
   public onDeleteClientClick(client: Client): void {
-    this.broker.deleteClient(client);
+    this._clientService.deleteClient(client);
   }
 
   //#endregion

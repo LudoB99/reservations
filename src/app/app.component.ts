@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ClientService } from './services/client.service';
+import { ShowService } from './services/show.service';
 import { TransactionService } from './services/transaction.service';
 
 @Component({
@@ -10,7 +12,7 @@ export class AppComponent {
 
   title = "Réservations";
 
-  constructor(private broker: TransactionService) {
+  constructor(private _transactionService: TransactionService, private _showService: ShowService, private _clientService: ClientService) {
 
   }
 }

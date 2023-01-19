@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { ShowService } from 'src/app/services/show.service'
-import { TransactionService } from 'src/app/services/transaction.service';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
+import { ShowService } from 'src/app/services/show.service';
+import { Show } from 'src/app/types/show';
 
 @Component({
   selector: 'app-list-shows',
   templateUrl: './list-shows.component.html',
   styleUrls: ['./list-shows.component.css']
 })
-export class ListShowsComponent implements OnInit {
+export class ListShowsComponent {
 
-  constructor(public broker: ShowService, public tBroker: TransactionService) {}
+  constructor(private _showService: ShowService) {}
 
-  ngOnInit(): void {}
+  public get shows(): Array<Show> {
+    return this._showService.getShows(); 
+  }
 }

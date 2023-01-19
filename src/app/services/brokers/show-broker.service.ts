@@ -24,11 +24,11 @@ export class ShowBrokerService extends BrokerService {
     this._ref = this.getListRef(this._path);
   }
 
-  protected add(show: any): void {
+  protected add(show: Show): void {
     this._ref.push(show);
   }
 
-  protected getAll(): Observable<any> {
+  protected getAll(): Observable<Array<Show>> {
     return this._ref.snapshotChanges().pipe(map(changes => changes.map(c =>({ key: c.payload.key, ...c.payload.val() }))));
   }
 

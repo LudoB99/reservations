@@ -8,10 +8,10 @@
         malesuada massa.</p>
       <h6 class="card-price"> Régulier: {{ show.price.regularPrice | currency}}</h6>
       <h6 class="card-price"> Étudiants: {{ show.price.studentPrice | currency}}</h6>
-      <a routerLink="/spectacles/{{ show.key }}" class="btn btn-success card-buy">Acheter</a>
+      <a routerLink="/spectacles/{{ show.key }}" class="btn btn-success card-buy">Vendre</a>
       <div class="tool-row float-end mt-3">
-        <a class="link-secondary me-2"  (click)="update(show)"><fa-icon [icon]="faUpdate"></fa-icon></a>
-        <a class="link-danger" (click)="showService.deleteShow(show)"><fa-icon [icon]="faDelete"></fa-icon></a>
+        <a class="link-secondary me-2"  (click)="onUpdateShowClick()"><fa-icon [icon]="updateIcon"></fa-icon></a>
+        <a class="link-danger" (click)="onDeleteShowClick()"><fa-icon [icon]="deleteIcon"></fa-icon></a>
       </div>
     </div>
   </div>

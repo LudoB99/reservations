@@ -1,6 +1,6 @@
-<ng-container *ngIf="(transactionService.getTransaction(key)) as transaction">
-  <ng-container *ngIf="clientService.getClient(transaction.client) as client">
-    <ng-container *ngIf="showService.getShow(transaction.show) as show">
+<ng-container *ngIf="transaction">
+  <ng-container *ngIf="client">
+    <ng-container *ngIf="show">
       <div class="row">
         <div class="col">
           <table class="table table-hover">
@@ -57,13 +57,13 @@
             </tr>
             <tr>
               <th>Total</th>
-              <td>{{ transaction.total | currency }}</td>
+              <td>{{ total | currency }}</td>
             </tr>
           </table>
         </div>
       </div>
-      <button type="button" class="btn btn-primary float-end" (click)="confirm()">Confirmer</button>
-      <button type="button" class="btn btn-danger float-end me-2" (click)="cancel()">Annuler</button>
+      <button type="button" class="btn btn-primary float-end" (click)="onConfirmClick()">Confirmer</button>
+      <button type="button" class="btn btn-danger float-end me-2" (click)="onCancelClick()">Annuler</button>
     </ng-container>
   </ng-container>
 </ng-container>

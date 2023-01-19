@@ -14,8 +14,8 @@
         </thead>
         <tbody>
               <tr>
-                <td>{{ transaction.show.title }}</td>
-                <td>{{ transaction.show.date }}</td>
+                <td>{{ transaction.show?.title }}</td>
+                <td>{{ transaction.show?.date }}</td>
               </tr>
         </tbody>
       </table>
@@ -35,11 +35,11 @@
         </thead>
         <tbody>
               <tr>
-                <td>{{ transaction.client.firstName }}</td>
-                <td>{{ transaction.client.lastName }}</td>
-                <td>{{ transaction.client.address }}</td>
-                <td>{{ transaction.client.city }}</td>
-                <td>{{ transaction.client.phone | phoneFormat}}</td>
+                <td>{{ transaction.client?.firstName }}</td>
+                <td>{{ transaction.client?.lastName }}</td>
+                <td>{{ transaction.client?.address }}</td>
+                <td>{{ transaction.client?.city }}</td>
+                <td>{{ transaction.client?.phone | phoneFormat}}</td>
               </tr>
         </tbody>
       </table>
@@ -58,7 +58,7 @@
         </tr>
         <tr>
           <th>Total</th>
-          <td>{{ transaction.total | currency }}</td>
+          <td>{{ total(transaction) | currency }}</td>
         </tr>
       </table>
     </div>

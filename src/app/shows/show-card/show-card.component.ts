@@ -1,8 +1,16 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input
+} from '@angular/core';
 import { Router } from '@angular/router';
+import { Icon } from '@fortawesome/fontawesome-svg-core';
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
-import { faPen, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import {
+  faPen,
+  IconDefinition
+} from '@fortawesome/free-solid-svg-icons';
 import { ShowService } from 'src/app/services/show.service';
+import { Show } from 'src/app/types/show';
 
 @Component({
   selector: 'app-show-card',
@@ -11,18 +19,49 @@ import { ShowService } from 'src/app/services/show.service';
 })
 export class ShowCardComponent {
 
-  @Input() show: any;
-  public faUpdate: IconDefinition;
-  public faDelete: IconDefinition;
+  @Input() inputShow: Show | undefined;
 
-  constructor(public showService: ShowService, private _router: Router) {
-    this.faUpdate = faPen;
-    this.faDelete = faTrashCan;
+  //#region Private members
+
+  private _updateIcon: IconDefinition;
+  private _deleteIcon: IconDefinition;
+
+  //#endregion
+
+  //#region ctor
+
+  constructor(private _showService: ShowService, private _router: Router) {
+    this._updateIcon = faPen;
+    this._deleteIcon = faTrashCan;
   }
 
-  ngOnInit(): void {}
+  //#endregion
 
-  public update(show: any) {
-    this._router.navigateByUrl("/spectacles/modifier/" + show.key);
+  //#region Properties
+
+  public get updateIcon(): IconDefinition {
+    return this._updateIcon; 
   }
+
+  public get deleteIcon(): IconDefinition {
+    return this._deleteIcon; 
+  }
+
+  public get show(): Show {
+    return this.inputShow as Show;  
+  }
+
+  //#endregion
+
+  //#region Public methods
+
+  public onUpdateShowClick(): void {
+    this._router.navigateByUrl("/spectacles/modifier/" + this.show.key);
+  }
+
+  public onDeleteShowClick(): void {
+    this._showService.deleteShow(this.show); 
+  }
+
+  //#endregion
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Transaction } from '../types/transaction';
 import { TransactionBrokerService } from './brokers/transaction-broker.service';
 import { ClientService } from './client.service';
 import { ShowService } from './show.service';
@@ -12,37 +13,43 @@ export class TransactionService {
 
   constructor(private _broker: TransactionBrokerService,
     private _clientService: ClientService, private _showService: ShowService) {
-    console.log("Creating TransactionService instance");
     this._broker.getAll().subscribe(transactions => {
       this._transactions = transactions;
     })
   }
 
-  public addTransaction(transaction: any) {
+  public addTransaction(transaction: Transaction) {
+    console.log(transaction); 
     return this._broker.add(transaction);
   }
 
-  public getTransactions(): any[] {
+  public getTransactions():Array<Transaction> {
     return this._transactions;
   }
 
-  public getTransaction(key: string): any {
+  public getTransactionsByShow(showKey: string) {
+    return this.getTransactions().find(transaction => {
+      return transaction.showKey == showKey;
+    })
+  }
+
+  public getTransaction(key: string): Transaction | undefined {
     return this.getTransactions().find(transaction => {
       return transaction.key == key;
     })
   }
 
-  public getObservable(): Observable<any> {
+  public getObservable(): Observable<Array<Transaction>> {
     return this._broker.getAll();
   }
 
-  public getConfirmedTransactions(): any {
+  public getConfirmedTransactions(): Array<Transaction> {
     let transactions = this.getTransactions().filter(confirmation => {
       return confirmation.confirmed == true;
     });
-    transactions.forEach((transaction: any) => {
-      transaction.client = this._clientService.getClient(transaction.client);
-      transaction.show = this._showService.getShow(transaction.show);
+    transactions.forEach((transaction: Transaction) => {
+      transaction.client = this._clientService.getClient(transaction.clientKey);
+      transaction.show = this._showService.getShow(transaction.showKey);
     });
     return transactions;
   }
@@ -55,8 +62,11 @@ export class TransactionService {
     return this._broker.deleteAll();
   }
 
-  public confirmTransaction(key: string) {
+  public confirmTransaction(key: string): Promise<void> | void {
     let transaction = this.getTransaction(key);
+    if(transaction === undefined) {
+      return; 
+    }
     transaction.confirmed = true;
     return this._broker.update(key, transaction);
   }

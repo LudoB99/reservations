@@ -41,7 +41,7 @@ export class ExportService {
           regularPrice: transaction.regularPrice,
           studentTickets: transaction.studentTickets,
           studentPrice: transaction.studentPrice,
-          total: transaction.total
+          total: transaction.regularTickets * transaction.regularPrice + transaction.studentTickets * transaction.studentPrice
         }
       );
     });
