@@ -9,7 +9,7 @@ import { ShowService } from './show.service';
   providedIn: 'root'
 })
 export class TransactionService {
-  private _transactions: any[] = [];
+  private _transactions: Transaction[] = [];
 
   constructor(private _broker: TransactionBrokerService,
     private _clientService: ClientService, private _showService: ShowService) {

@@ -11,11 +11,19 @@ import { Client } from 'src/app/types/client';
 })
 export class CreateClientComponent{
 
+  //#region ctor
+
   constructor(private _clientService: ClientService, private _location: Location) { }
+
+  //#endregion
+
+  //#region Public methods
 
   public submitClick(form: NgForm) {
     const client: Client = this._clientService.format(form.value);
     this._clientService.addClient(client);
     this._location.back();
   }
+
+  //#endregion
 }

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
+import { Client } from '../types/client';
+import { Transaction } from '../types/transaction';
 
 @Injectable({
   providedIn: 'root'
@@ -9,14 +11,14 @@ export class ExportService {
 
   constructor() { }
 
-  public exportTransactions(transactions: any) {
+  public exportTransactions(transactions: Transaction[]) {
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Reservations');
     let reservations = this.format(transactions);
 
     worksheet.columns = this.getReservationsColumns();
 
-    reservations.forEach((element: any) => {
+    reservations.forEach((element) => {
       worksheet.addRow(element);
     });
 
@@ -26,17 +28,17 @@ export class ExportService {
     })
   }
 
-  private format(transactions: any): Array<object> {
+  private format(transactions: Transaction[]): Array<object> {
     let arr: Array<object> = [];
-    transactions.forEach((transaction: any) => {
+    transactions.forEach((transaction: Transaction) => {
       arr.push(
         {
-          title: transaction.show.title,
-          date: transaction.show.date,
-          firstName: transaction.client.firstName,
-          lastName: transaction.client.lastName,
-          address: transaction.client.address,
-          phone: transaction.client.phone,
+          title: transaction.show?.title,
+          date: transaction.show?.date,
+          firstName: transaction.client?.firstName,
+          lastName: transaction.client?.lastName,
+          address: transaction.client?.address,
+          phone: transaction.client?.phone,
           regularTickets: transaction.regularTickets,
           regularPrice: transaction.regularPrice,
           studentTickets: transaction.studentTickets,
@@ -64,13 +66,13 @@ export class ExportService {
     ];
   }
 
-  public exportClient(clients: any) {
+  public exportClient(clients: Client[]) {
     let workbook = new Workbook();
     let worksheet = workbook.addWorksheet('Clients');
 
     worksheet.columns = this.getClientsColumns();
 
-    clients.forEach((element: any) => {
+    clients.forEach((element) => {
       worksheet.addRow(element);
     });
 

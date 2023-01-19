@@ -7,6 +7,8 @@ import {
 import { ClientService } from 'src/app/services/client.service';
 import { ShowService } from 'src/app/services/show.service';
 import { TransactionService } from 'src/app/services/transaction.service';
+import { Client } from 'src/app/types/client';
+import { Show } from 'src/app/types/show';
 import { Transaction } from 'src/app/types/transaction';
 
 @Component({
@@ -16,14 +18,20 @@ import { Transaction } from 'src/app/types/transaction';
 })
 export class SellShowComponent {
 
-  public key: any;
-  public show: any;
+  private readonly _key: string;
 
-  constructor(public showBroker: ShowService, public clientBroker: ClientService,
+  constructor(private _showBroker: ShowService, private _clientBroker: ClientService,
     private _transactionBroker: TransactionService, private _route: ActivatedRoute,
     private _router: Router) {
-    this.key = this._route.snapshot.paramMap.get('id');
-    this.show = showBroker.getShow(this.key);
+    this._key = this._route.snapshot.paramMap.get('id') as string;
+  }
+
+  public get show(): Show | undefined {
+    return this._showBroker.getShow(this._key);
+  }
+
+  public get clients(): Client[] | undefined {
+    return this._clientBroker.getClients(); 
   }
 
   public submit(form: NgForm) {
@@ -37,11 +45,11 @@ export class SellShowComponent {
   console.log(data); 
    return {
       clientKey: data.client.key,
-      showKey: this.key,
+      showKey: this._key,
       regularTickets: data.regularTickets,
       studentTickets: data.studentTickets,
-      regularPrice: this.show.price.regularPrice,
-      studentPrice: this.show.price.studentPrice,
+      regularPrice: this.show?.price.regularPrice,
+      studentPrice: this.show?.price.studentPrice,
     } as Transaction
   }
 

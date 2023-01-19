@@ -7,6 +7,7 @@ import {
   map,
   Observable
 } from 'rxjs';
+import { Transaction } from 'src/app/types/transaction';
 import { BrokerService } from './broker.service';
 
 @Injectable({
@@ -23,7 +24,7 @@ export class TransactionBrokerService extends BrokerService {
     this._ref = this.getListRef(this._path);
   }
 
-  public add(transaction: any) {
+  public add(transaction: Transaction) {
     return this._ref.push(transaction);
   }
 
@@ -35,7 +36,7 @@ export class TransactionBrokerService extends BrokerService {
     );
   }
 
-  public update(key: string, transaction: any): Promise<void>{
+  public update(key: string, transaction: Transaction): Promise<void>{
     return this._ref.update(key, transaction);
   }
 

@@ -34,17 +34,13 @@ export class ClientService extends ClientBrokerService {
     return client;
   }
 
-  public getObservable(): Observable<any> {
-    return this.getAll();
-  }
-
-  public updateClient(key: string, client: any): Promise<void> {
+  public updateClient(key: string, client: Client): Promise<void> {
     return this.update(key, client);
   }
 
-  public deleteClient(client: any) {
+  public deleteClient(client: Client) {
     if(confirm(this.deleteClientPrompt(client))) {
-      return this.delete(client.key);
+      if(client.key) return this.delete(client.key);
     }
     return undefined; 
   }
@@ -53,7 +49,7 @@ export class ClientService extends ClientBrokerService {
     return this.deleteAll();
   }
 
-  private deleteClientPrompt(client: any): string {
+  private deleteClientPrompt(client: Client): string {
     return "Voulez-vous supprimer " + client.firstName + " " + client.lastName + " de la liste?";
   }
 
